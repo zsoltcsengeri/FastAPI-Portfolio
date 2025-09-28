@@ -1,62 +1,108 @@
-# Zsolt Csengeri's Portfolio and Contact Website
+# PK-Work – CV Website with FastAPI Contact Form
 
-This project is a personal portfolio website developed by Zsolt Csengeri. It's aimed at showcasing my skills, experience, and providing my contact information. This platform offers an interactive way for potential clients or employers to get to know more about my work and get in touch.
+This project contains my personal CV website, originally hosted on GitHub Pages.  
+The `fastapi-contact-form` branch extends the project by adding a **backend** with **FastAPI** and a **PostgreSQL database** to handle the contact form submissions.
 
-## Live Demo
-Visit the live demo of the website at https://zsoltcsengeri.github.io/PK-Work/.
+---
 
-## Motivation
-The primary motivation behind this project was to create a central hub for individuals interested in my work. It provides a comprehensive overview of my skills and experiences, and also features a form for quick and easy communication.
+## 📂 Project Structure
 
-## Technologies
-This project is created with:
-
-* HTML5
-* CSS3
-* Node.js
-* MySQL
-  
-## Features
-  
-
-The website includes the following features:
-
-A **Contact Form** where visitors can submit their details. These details (full name, phone number, email, website, and the text message) are stored in a **MySQL** database for future reference.
-An **Updated CV** available to read and download by clicking on the **CV button**.
-A **Terms and Conditions** page that users must agree to by ticking a checkbox before they can submit their details.
-## Getting Started
-Clone the repository to your local machine, then follow the instructions below.
-
-## Prerequisites
-To run this project, you'll need Node.js installed on your computer. You can download it from [here](https://nodejs.org/en).
-
-You'll also need a MySQL server running.
-
-## Installation
-After installing the prerequisites, navigate to the project directory and run the following command to install the required dependencies:
-
-`npm install`
+PK-Work/
+│
+├── backend/ # FastAPI backend
+│ ├── main.py # FastAPI app (entry point)
+│ ├── models.py # Database models
+│ ├── database.py # DB connection
+│ └── requirements.txt # Python dependencies
+│
+├── frontend/ # Website files
+│ ├── CV/ # Resume
+│ │ └── Zsolt_Resume.pdf
+│ ├── images/ # Images
+│ ├── index.html # Main CV site
+│ ├── script.js # JS logic for contact form
+│ ├── style.css # Main styling
+│ ├── terms_conditions.html
+│ └── terms_style.css
+│
+├── LICENSE
+└── README.md
 
 
-## Usage
-To start the server, run the following command in the terminal:
+---
+
+## 🚀 Running the Backend Locally
+
+### 1. Install dependencies
+Create a virtual environment (recommended):
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Linux/Mac
+venv\Scripts\activate     # On Windows
+pip install -r requirements.txt
+
+2. Set up PostgreSQL
+
+Make sure you have PostgreSQL running locally.
+Create a database (example):
+
+CREATE DATABASE cv_site;
 
 
-`node server.js`
+Update the connection settings in backend/database.py:
 
-Now, you can visit **localhost:3000** in your browser to view the website.
+DB_USER = "postgres"
+DB_PASSWORD = "your_password"
+DB_HOST = "localhost"
+DB_PORT = "5432"
+DB_NAME = "cv_site"
 
-## Database Access
-The submitted details are stored in a MySQL database, which allows for organized storage and easy retrieval of the contact details. For the purpose of demonstration and learning, you can access the database using the following credentials:
+3. Run the server
+
+From the root folder:
+
+uvicorn backend.main:app --reload
 
 
-`Username: user`
+FastAPI will start at:
 
-`Password: PKuser`
+API docs → http://127.0.0.1:8000/docs
 
-![Alt text](image.png)
+Contact endpoint → POST /contact
 
-Please note that this database contains only dummy data for testing and demonstration purposes. It's always recommended to secure your database credentials and not expose them publicly in a real-world project scenario.
+🖥️ Frontend
 
-## License
-This project is open source and available under the [LICENSE](docs/LICENSE).
+All website files are in the frontend/ folder.
+
+script.js collects form input and sends it to the backend (/contact) using JavaScript fetch().
+
+On deployment, Nginx will serve these static files and proxy API requests to FastAPI.
+
+🌍 Deployment Plan
+
+The final deployment will be on a Linux cloud server (DigitalOcean or AWS):
+
+Nginx → serves static files (frontend) + reverse proxy for FastAPI backend.
+
+FastAPI (Uvicorn/Gunicorn) → runs backend app.
+
+PostgreSQL → stores contact form submissions.
+
+Namecheap domain → zsolt-csengeri.com will point to the server’s IP.
+
+Certbot → enables HTTPS with Let’s Encrypt.
+
+📌 Branches
+
+main → static version of my CV site (GitHub Pages).
+
+fastapi-contact-form → development branch with FastAPI + PostgreSQL backend.
+
+✨ Future Improvements
+
+Email notification on new contact form submission.
+
+Admin panel to view messages.
+
+Dockerize backend for easier deployment.
