@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Collect values from the form
     const formData = {
-      name: e.target.full_name.value,
+      name: e.target.name.value,
       email: e.target.email.value,
-      phone: e.target.phone_number.value,
-      website: e.target.web_site.value,
+      phone: e.target.phone.value,
+      website: e.target.website.value,
       message: e.target.message.value,
     };
 
