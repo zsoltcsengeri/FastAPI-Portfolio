@@ -2,11 +2,27 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
 from backend import models, database
+from fastapi.middleware.cors import CORSMiddleware
+import os
+
+
+
 
 # Create tables if they don't exist
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
+
+# CORS middleware
+# Allow frontend to call backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or specify ["http://127.0.0.1:5500"] etc.
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Pydantic model
 class ContactCreate(BaseModel):
@@ -37,3 +53,4 @@ def read_contact(contact_id: int, db: Session = Depends(get_db)):
     if contact:
         return {"id": contact.id, "name": contact.name, "email": contact.email}
     return {"error": "Contact not found"}, 404
+

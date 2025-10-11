@@ -1,0 +1,44 @@
+// Wait until the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+
+  if (!form) {
+    console.error("Contact form not found in the HTML!");
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // stop page reload
+
+    // Collect values from the form
+    const formData = {
+      name: e.target.full_name.value,
+      email: e.target.email.value,
+      phone: e.target.phone_number.value,
+      website: e.target.web_site.value,
+      message: e.target.message.value,
+    };
+
+    try {
+      // Send data to FastAPI backend
+      const response = await fetch("http://127.0.0.1:8000/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Server error: " + response.statusText);
+      }
+
+      const data = await response.json();
+      alert("✅ Message sent! ID: " + data.id);
+
+      // Optional: reset the form after success
+      form.reset();
+    } catch (error) {
+      console.error("Error:", error);
+      alert("❌ Failed to send message. Please try again later.");
+    }
+  });
+});
