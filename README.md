@@ -1,4 +1,4 @@
-# 🧠 Zsolt Csengeri — FastAPI + PostgreSQL + Nginx Deployment Project
+# Zsolt Csengeri — FastAPI + PostgreSQL + Nginx Deployment Project
 
 ## 🌍 Live Demo
 | Environment | URL |
