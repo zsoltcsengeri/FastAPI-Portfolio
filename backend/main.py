@@ -47,7 +47,12 @@ def create_contact(contact: ContactCreate, db: Session = Depends(get_db)):
     db.refresh(new_contact)
     return {"status": "ok", "id": new_contact.id}
 
-@app.get("/contacts/{contact_id}")
+@app.get("/contacts")# List all contacts
+def get_contacts(db: Session = Depends(get_db)):
+    contacts = db.query(models.Contact).all()
+    return contacts
+
+@app.get("/contacts/{contact_id}") # Get contact by ID
 def read_contact(contact_id: int, db: Session = Depends(get_db)):
     contact = db.query(models.Contact).filter(models.Contact.id == contact_id).first()
     if contact:
