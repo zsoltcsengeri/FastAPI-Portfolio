@@ -73,7 +73,7 @@ pip install -r backend/requirements.txt
 sudo -i -u postgres
 psql
 CREATE DATABASE cv_site;
-CREATE USER cv_app_user WITH PASSWORD 'menzoberanzan';
+CREATE USER cv_app_user WITH PASSWORD '<password>';
 GRANT ALL PRIVILEGES ON DATABASE cv_site TO cv_app_user;
 \\q
 exit
