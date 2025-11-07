@@ -41,7 +41,7 @@ def get_db():
 
 @app.post("/contacts")
 def create_contact(contact: ContactCreate, db: Session = Depends(get_db)):
-    new_contact = models.Contact(**contact.model_dump())
+    new_contact = models.Contact(**contact.dict())
     db.add(new_contact)
     db.commit()
     db.refresh(new_contact)
