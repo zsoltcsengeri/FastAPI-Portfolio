@@ -143,9 +143,9 @@ sudo journalctl -u fastapi -n 50
 # PostgreSQL access
 sudo -i -u postgres
 psql
-\\c cv_site
+\c cv_site
 SELECT * FROM contacts;
-\\q
+\q
 ```
 
 ---
