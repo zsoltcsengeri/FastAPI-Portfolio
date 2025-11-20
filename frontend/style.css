@@ -357,6 +357,7 @@ h1 {
   text-align: justify;
   word-spacing: -0.05em;
   letter-spacing: -0.05em;
+  -webkit-hyphens:auto;
   hyphens: auto;
     
 }
@@ -375,6 +376,7 @@ h1 {
   text-align: justify;
   word-spacing: -0.05em;
   letter-spacing: -0.05em;
+  -webkit-hyphens: auto;
   hyphens: auto;
 }
 
