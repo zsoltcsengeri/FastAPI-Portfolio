@@ -1,7 +1,7 @@
 // Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   // --- Form elements ---
-  const form = document.getElementById("contactForm");
+  const form = document.querySelector("#contactForm");
 
   if (!form) {
     console.error("Contact form not found in the HTML!");
@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Modal elements ---
   const modalContainer = document.querySelector("#modal_container");
-  const modalMessage   = document.querySelector("#modal-message");
-  const modalCloseBtn  = document.querySelector("#modal-close");
+  const modalMessage = document.querySelector("#modal-message");
+  const modalCloseBtn = document.querySelector("#modal-close");
 
   if (!modalContainer || !modalMessage || !modalCloseBtn) {
     console.error("Modal elements not found in the HTML!");
@@ -68,7 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const name = formData.name.trim();
       const greeting = name ? `Hey ${name}, ` : "Hey, ";
 
-      openModal(`${greeting}thanks for contacting me! ✅ Message sent. ID: ${data.id}`);
+      openModal(
+        `${greeting}thanks for contacting me! ✅ Message sent. ID: ${data.id}`
+      );
 
       // Optional: reset the form after success
       form.reset();
@@ -78,3 +80,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// Session storage
+
+const $acceptNavigator = document.querySelector(".a-accept");
+const $nameFormInput = document.querySelector("#name");
+const $emailFormInput = document.querySelector("#email");
+const $phoneFormInput = document.querySelector("#phone");
+const $websiteFormInput = document.querySelector("#website");
+const $messageFormInput = document.querySelector("#message");
+
+$acceptNavigator.addEventListener("click", () => {
+  const nameValue = $nameFormInput.value;
+  const emailValue = $emailFormInput.value;
+  const phoneValue = $phoneFormInput.value;
+  const websiteValue = $websiteFormInput.value;
+  const messageValue = $messageFormInput.value;
+
+  sessionStorage.setItem("name", nameValue);
+  sessionStorage.setItem("email", emailValue);
+  sessionStorage.setItem("phone", phoneValue);
+  sessionStorage.setItem("website", websiteValue);
+  sessionStorage.setItem("message", messageValue);
+});
+
+if (sessionStorage.getItem("name")) {
+  $nameFormInput.value = sessionStorage.getItem("name");
+}
+if (sessionStorage.getItem("email")) {
+  $emailFormInput.value = sessionStorage.getItem("email");
+}
+if (sessionStorage.getItem("phone")) {
+  $phoneFormInput.value = sessionStorage.getItem("phone");
+}
+if (sessionStorage.getItem("website")) {
+  $websiteFormInput.value = sessionStorage.getItem("website");
+}
+if (sessionStorage.getItem("message")) {
+  $messageFormInput.value = sessionStorage.getItem("message");
+}
