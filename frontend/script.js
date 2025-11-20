@@ -1,5 +1,6 @@
 // Wait until the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
+  // --- Form elements ---
   const form = document.getElementById("contactForm");
 
   if (!form) {
@@ -7,6 +8,37 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // --- Modal elements ---
+  const modalContainer = document.querySelector("#modal_container");
+  const modalMessage   = document.querySelector("#modal-message");
+  const modalCloseBtn  = document.querySelector("#modal-close");
+
+  if (!modalContainer || !modalMessage || !modalCloseBtn) {
+    console.error("Modal elements not found in the HTML!");
+    return;
+  }
+
+  // --- Modal helpers ---
+  function openModal(message) {
+    modalMessage.textContent = message;
+    modalContainer.classList.add("show");
+  }
+
+  function closeModal() {
+    modalContainer.classList.remove("show");
+  }
+
+  // Close when clicking the Close button
+  modalCloseBtn.addEventListener("click", closeModal);
+
+  // Optional: close when clicking outside the modal box
+  modalContainer.addEventListener("click", (event) => {
+    if (event.target === modalContainer) {
+      closeModal();
+    }
+  });
+
+  // --- Form submit handler ---
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); // stop page reload
 
@@ -32,13 +64,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      alert("✅ Message sent! ID: " + data.id);
+
+      const name = formData.name.trim();
+      const greeting = name ? `Hey ${name}, ` : "Hey, ";
+
+      openModal(`${greeting}thanks for contacting me! ✅ Message sent. ID: ${data.id}`);
 
       // Optional: reset the form after success
       form.reset();
     } catch (error) {
       console.error("Error:", error);
-      alert("❌ Failed to send message. Please try again later.");
+      openModal("❌ Failed to send your message. Please try again later.");
     }
   });
 });
