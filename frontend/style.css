@@ -708,7 +708,7 @@ input[type="checkbox"] {
 .website-link:hover {
   background-color: #476e9e;
   color: #18142c;
-  font-weight: 550;
+  
 }
 
 @media (min-width: 768px) {
