@@ -3,3 +3,5 @@ uvicorn # ASGI server for FastAPI
 sqlalchemy # SQL toolkit and ORM
 psycopg2-binary # PostgreSQL adapter for Python
 pydantic # Data validation and settings management
+python-dotenv # Load environment variables from .env file
+email-validator # Validate email addresses in Pydantic models

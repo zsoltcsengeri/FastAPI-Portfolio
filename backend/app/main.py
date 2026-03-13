@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends 
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr
-from backend import models, database
+from app import models, database
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
