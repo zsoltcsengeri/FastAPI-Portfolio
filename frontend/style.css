@@ -596,6 +596,7 @@ form {
   margin: 25px;
   box-shadow: 0 2px 5px #f5f5f5;
   background: #f5f5f5;
+  border-radius: 15px;
 }
 
 input,
