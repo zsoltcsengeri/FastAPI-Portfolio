@@ -47,11 +47,12 @@ PostgreSQL
 ## Project Structure
 
 
+```text
 /fastapi-app
 ├── backend/
 ├── frontend/
 └── venv/
-
+```
 
 ---
 
